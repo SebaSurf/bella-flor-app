@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import Slider from "react-slick";
-import { GiFlowerTwirl, GiNailedFoot } from "react-icons/gi";
+import { GiFlowerTwirl } from "react-icons/gi";
 import { FaInstagram, FaEnvelope } from "react-icons/fa";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -67,12 +67,10 @@ export default function Inicio() {
         Bienvenida a Bella Flor <GiFlowerTwirl size={36} />
       </h1>
 
-    
-
       {/* Carrusel de fotos */}
       <section style={{ margin: "40px 0" }}>
         <h2 style={{ color: "#004d40", textAlign: "center", marginBottom: "20px" }}>
-          💅 Diseños más queridos
+          💅 Diseños destacados
         </h2>
 
         <Slider {...sliderSettings}>
@@ -198,22 +196,22 @@ export default function Inicio() {
       </div>
 
       {/* Footer */}
-     <footer
-  style={{
-    marginTop: "60px",
-    padding: "20px",
-    textAlign: "center",
-    background: "linear-gradient(90deg, #b2dfdb, #e0f2f1)",
-    borderRadius: "16px",
-    fontSize: "14px",
-    color: "#004d40"
-  }}
->
-  <p>🌸 <strong>¡Gracias por confiar en Bella Flor!</strong> Tu belleza es nuestra inspiración ✨</p>
-  <p><FaInstagram /> Síguenos en Instagram: <strong>@bellaflor_manicure</strong></p>
-  <p><FaEnvelope /> Escríbenos a: <strong>Bellaflormanicure@gmail.com</strong></p>
-  <p>📍 Atención solo en <strong>Puerto Montt, Chile</strong> con mucho cariño</p>
-</footer>
+      <footer
+        style={{
+          marginTop: "60px",
+          padding: "20px",
+          textAlign: "center",
+          background: "linear-gradient(90deg, #b2dfdb, #e0f2f1)",
+          borderRadius: "16px",
+          fontSize: "14px",
+          color: "#004d40"
+        }}
+      >
+        <p>🌸 <strong>¡Gracias por confiar en Bella Flor!</strong> Tu belleza es nuestra inspiración ✨</p>
+        <p><FaInstagram /> Síguenos en Instagram: <strong>@bellaflor_manicure</strong></p>
+        <p><FaEnvelope /> Escríbenos a: <strong>Bellaflormanicure@gmail.com</strong></p>
+        <p>📍 Atención solo en <strong>Puerto Montt, Chile</strong> con mucho cariño</p>
+      </footer>
 
     </div>
   );
