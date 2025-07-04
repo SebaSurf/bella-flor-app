@@ -67,25 +67,7 @@ export default function Inicio() {
         Bienvenida a Bella Flor <GiFlowerTwirl size={36} />
       </h1>
 
-      {/* Presentación */}
-      <div
-        style={{
-          fontSize: "1.3em",
-          lineHeight: "1.7",
-          color: "#004d40",
-          padding: "25px",
-          borderRadius: "18px",
-          background: "#ffffff",
-          boxShadow: "0 4px 10px rgba(0,0,0,0.05)",
-          marginBottom: "30px",
-          textAlign: "center"
-        }}
-      >
-        🌸 <strong>Presentación</strong> 🌸 <br /><br />
-        Para mí, el arte del manicure es un reflejo de cómo nos sentimos.  
-        En cada diseño que realizo, pongo todo mi cariño, dedicación y amor  
-        para que cada clienta se sienta aún más bella, segura y feliz consigo misma. 💅✨
-      </div>
+    
 
       {/* Carrusel de fotos */}
       <section style={{ margin: "40px 0" }}>
