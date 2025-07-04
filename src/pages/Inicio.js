@@ -157,7 +157,7 @@ export default function Inicio() {
         }}
       >
         <button
-          onClick={() => navigate("/ficha")}
+          onClick={() => navigate("/politicas")}
           style={{
             background: "linear-gradient(to right, #80cbc4, #a5d6a7)",
             color: "white",
@@ -198,22 +198,23 @@ export default function Inicio() {
       </div>
 
       {/* Footer */}
-      <footer
-        style={{
-          marginTop: "60px",
-          padding: "20px",
-          textAlign: "center",
-          background: "linear-gradient(90deg, #b2dfdb, #e0f2f1)",
-          borderRadius: "16px",
-          fontSize: "14px",
-          color: "#004d40"
-        }}
-      >
-        <p>🌸 Gracias por confiar en mí para resaltar tu belleza ✨</p>
-        <p><FaInstagram /> Instagram: @bellaflor_manicure</p>
-        <p><FaEnvelope /> contacto@bellaflor.com</p>
-        <p>📍 Santiago, Chile</p>
-      </footer>
+     <footer
+  style={{
+    marginTop: "60px",
+    padding: "20px",
+    textAlign: "center",
+    background: "linear-gradient(90deg, #b2dfdb, #e0f2f1)",
+    borderRadius: "16px",
+    fontSize: "14px",
+    color: "#004d40"
+  }}
+>
+  <p>🌸 <strong>¡Gracias por confiar en Bella Flor!</strong> Tu belleza es nuestra inspiración ✨</p>
+  <p><FaInstagram /> Síguenos en Instagram: <strong>@bellaflor_manicure</strong></p>
+  <p><FaEnvelope /> Escríbenos a: <strong>Bellaflormanicure@gmail.com</strong></p>
+  <p>📍 Atención solo en <strong>Puerto Montt, Chile</strong> con mucho cariño</p>
+</footer>
+
     </div>
   );
 }

@@ -5,6 +5,7 @@ import Ficha from "./pages/Ficha";
 import LoginAdmin from "./pages/LoginAdmin";
 import AdminPanel from "./pages/AdminPanel";
 import Historial from "./pages/Historial";
+import Politicas from "./pages/Politicas";
 
 export default function App() {
   return (
@@ -15,6 +16,7 @@ export default function App() {
         <Route path="/login" element={<LoginAdmin />} />
         <Route path="/admin" element={<AdminPanel />} />
         <Route path="/historial" element={<Historial />} />
+        <Route path="/politicas" element={<Politicas />} />
       </Routes>
     </Router>
   );
