@@ -10,7 +10,8 @@ export default function Ficha() {
     nombre: "",
     email: "",
     direccion: "",
-    fecha: "",
+    dia: "",
+    hora: "",
     tipo: "",
     colores: "",
     diseño: "",
@@ -20,15 +21,38 @@ export default function Ficha() {
 
   const [reservas, setReservas] = useState([]);
   const [mensaje, setMensaje] = useState("");
+  const [horariosDisponibles, setHorariosDisponibles] = useState([]);
+
+  const horariosSemana = {
+    Lunes: ["09:00", "10:00", "11:00", "12:00", "13:00"],
+    Martes: ["09:00", "10:00", "11:00", "12:00", "13:00"],
+    Miércoles: ["17:30", "18:30", "19:30", "20:30"],
+    Jueves: [
+      "09:00", "10:00", "11:00", "12:00", "13:00",
+      "17:30", "18:30", "19:30", "20:30",
+    ],
+    Sábado: [
+      "09:00", "10:00", "11:00", "12:00", "13:00",
+      "14:00", "15:00", "16:00", "17:00",
+      "18:00", "19:00", "20:00", "21:00",
+    ],
+  };
 
   useEffect(() => {
     const datos = localStorage.getItem("reservasGuardadas");
-    if (datos) {
-      setReservas(JSON.parse(datos));
-    }
+    if (datos) setReservas(JSON.parse(datos));
   }, []);
 
   const cuposRestantes = MAX_CUPOS - reservas.length;
+
+  const handleDiaClick = (dia) => {
+    setForm((prev) => ({ ...prev, dia, hora: "" }));
+    setHorariosDisponibles(horariosSemana[dia]);
+  };
+
+  const handleHoraClick = (hora) => {
+    setForm((prev) => ({ ...prev, hora }));
+  };
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -56,13 +80,15 @@ export default function Ficha() {
       nombre: "",
       email: "",
       direccion: "",
-      fecha: "",
+      dia: "",
+      hora: "",
       tipo: "",
       colores: "",
       diseño: "",
       tecnica: "Marmolado",
       estilo: "Francesa",
     });
+    setHorariosDisponibles([]);
   };
 
   const mensajeCupos = () => {
@@ -77,12 +103,10 @@ export default function Ficha() {
         padding: 30,
         maxWidth: 650,
         margin: "30px auto",
-        background:
-          "linear-gradient(135deg, #a7ffeb 0%, #64b5f6 100%)", // gradiente aqua
+        background: "linear-gradient(135deg, #a7ffeb 0%, #64b5f6 100%)",
         borderRadius: "25px",
         fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
-        boxShadow:
-          "0 8px 24px rgba(0, 0, 0, 0.15)", // sombra suave y moderna
+        boxShadow: "0 8px 24px rgba(0, 0, 0, 0.15)",
         color: "#004d40",
       }}
     >
@@ -97,7 +121,7 @@ export default function Ficha() {
           textShadow: "1px 1px 3px #004d4080",
         }}
       >
-        🌸 Ficha de Atención Bella Flor
+        🌸 Ficha de Atención Bella Flor 💅🏻🖌✨
       </h2>
 
       <div
@@ -117,31 +141,25 @@ export default function Ficha() {
       </div>
 
       {cuposRestantes > 0 && (
-        <form
-          onSubmit={handleSubmit}
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            gap: 16,
-          }}
-        >
-          {[
-            { name: "nombre", placeholder: "Nombre completo", type: "text" },
-            { name: "email", placeholder: "Correo electrónico", type: "email" },
-            { name: "direccion", placeholder: "Dirección", type: "text" },
-            { name: "fecha", placeholder: "Fecha de reserva", type: "date" },
-            { name: "tipo", placeholder: "Tipo de trabajo", type: "text" },
-            { name: "colores", placeholder: "Colores preferidos", type: "text" },
-            { name: "diseño", placeholder: "Diseño deseado", type: "text" },
-          ].map(({ name, placeholder, type }) => (
+        <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+          {["nombre", "email", "direccion", "tipo", "colores", "diseño"].map((name) => (
             <input
               key={name}
               name={name}
-              type={type}
-              placeholder={placeholder}
+              type={name === "email" ? "email" : "text"}
+              placeholder={
+                {
+                  nombre: "Nombre completo",
+                  email: "Correo electrónico",
+                  direccion: "Dirección",
+                  tipo: "Tipo de trabajo",
+                  colores: "Colores preferidos",
+                  diseño: "Diseño deseado",
+                }[name]
+              }
               value={form[name]}
               onChange={handleChange}
-              required={name !== "tipo" && name !== "colores" && name !== "diseño"} // opcionales
+              required={name === "nombre" || name === "email" || name === "direccion"}
               style={{
                 padding: "14px 16px",
                 borderRadius: "15px",
@@ -149,45 +167,69 @@ export default function Ficha() {
                 fontSize: "16px",
                 fontWeight: "600",
                 outlineColor: "#004d40",
-                transition: "border-color 0.3s",
               }}
-              onFocus={(e) => (e.target.style.borderColor = "#004d40")}
-              onBlur={(e) => (e.target.style.borderColor = "#00796b")}
             />
           ))}
 
-          <label style={{ fontWeight: "700", color: "#004d40" }}>Técnica:</label>
-          <select
-            name="tecnica"
-            value={form.tecnica}
-            onChange={handleChange}
-            style={{
-              padding: "12px 16px",
-              borderRadius: "15px",
-              border: "2px solid #00796b",
-              fontSize: "16px",
-              fontWeight: "600",
-              outlineColor: "#004d40",
-            }}
-          >
+          {/* Día de semana */}
+          <label style={{ fontWeight: "700" }}>📅 Selecciona un día:</label>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: "10px" }}>
+            {Object.keys(horariosSemana).map((dia) => (
+              <button
+                key={dia}
+                type="button"
+                onClick={() => handleDiaClick(dia)}
+                style={{
+                  background: form.dia === dia ? "#004d40" : "#a7ffeb",
+                  color: form.dia === dia ? "white" : "#004d40",
+                  padding: "10px 20px",
+                  border: "2px solid #004d40",
+                  borderRadius: "25px",
+                  fontWeight: "bold",
+                  cursor: "pointer",
+                }}
+              >
+                {dia}
+              </button>
+            ))}
+          </div>
+
+          {/* Horarios disponibles */}
+          {horariosDisponibles.length > 0 && (
+            <>
+              <label style={{ fontWeight: "700" }}>🕐 Elige una hora:</label>
+              <div style={{ display: "flex", flexWrap: "wrap", gap: "10px" }}>
+                {horariosDisponibles.map((hora) => (
+                  <button
+                    key={hora}
+                    type="button"
+                    onClick={() => handleHoraClick(hora)}
+                    style={{
+                      background: form.hora === hora ? "#00796b" : "#ffffff",
+                      color: form.hora === hora ? "white" : "#004d40",
+                      border: "2px solid #004d40",
+                      borderRadius: "20px",
+                      padding: "10px 15px",
+                      fontWeight: "bold",
+                      cursor: "pointer",
+                    }}
+                  >
+                    {hora}
+                  </button>
+                ))}
+              </div>
+            </>
+          )}
+
+          {/* Técnica y estilo */}
+          <label style={{ fontWeight: "700" }}>💅 Técnica:</label>
+          <select name="tecnica" value={form.tecnica} onChange={handleChange} style={selectStyle}>
             <option value="Marmolado">Marmolado</option>
             <option value="Stickers al agua">Stickers al agua</option>
           </select>
 
-          <label style={{ fontWeight: "700", color: "#004d40" }}>Estilo:</label>
-          <select
-            name="estilo"
-            value={form.estilo}
-            onChange={handleChange}
-            style={{
-              padding: "12px 16px",
-              borderRadius: "15px",
-              border: "2px solid #00796b",
-              fontSize: "16px",
-              fontWeight: "600",
-              outlineColor: "#004d40",
-            }}
-          >
+          <label style={{ fontWeight: "700" }}>✨ Estilo:</label>
+          <select name="estilo" value={form.estilo} onChange={handleChange} style={selectStyle}>
             <option value="Francesa">Francesa</option>
             <option value="Puntitos">Puntitos</option>
             <option value="Flores">Flores</option>
@@ -206,10 +248,7 @@ export default function Ficha() {
               fontWeight: "900",
               cursor: "pointer",
               boxShadow: "0 4px 10px #00796b",
-              transition: "background-color 0.3s ease",
             }}
-            onMouseEnter={(e) => (e.target.style.backgroundColor = "#00796b")}
-            onMouseLeave={(e) => (e.target.style.backgroundColor = "#004d40")}
           >
             💅 Reservar ahora
           </button>
@@ -248,10 +287,7 @@ export default function Ficha() {
             fontWeight: "700",
             cursor: "pointer",
             boxShadow: "0 4px 10px #004d4060",
-            transition: "background-color 0.3s ease",
           }}
-          onMouseEnter={(e) => (e.target.style.backgroundColor = "#64b5f6")}
-          onMouseLeave={(e) => (e.target.style.backgroundColor = "#a7ffeb")}
         >
           ⬅️ Volver al Inicio
         </button>
@@ -259,3 +295,12 @@ export default function Ficha() {
     </div>
   );
 }
+
+const selectStyle = {
+  padding: "12px 16px",
+  borderRadius: "15px",
+  border: "2px solid #00796b",
+  fontSize: "16px",
+  fontWeight: "600",
+  outlineColor: "#004d40",
+};
