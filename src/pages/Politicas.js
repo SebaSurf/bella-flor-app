@@ -29,12 +29,12 @@ export default function Politicas() {
         margin: "0 auto",
         padding: 30,
         fontFamily: "'Segoe UI', sans-serif",
-        backgroundColor: "#e0f7f3",
+        backgroundColor: "#f1faf9",
         borderRadius: "20px",
         boxShadow: "0 6px 18px rgba(0,0,0,0.1)",
       }}
     >
-      <h1 style={{ textAlign: "center", color: "#00796b", marginBottom: "30px" }}>
+      <h1 style={{ fontSize: "26px", color: "#007f6e", textAlign: "center" }}>
         ✨ Reglas y Políticas de Atención Bella Flor ✨
       </h1>
 
@@ -76,25 +76,71 @@ export default function Politicas() {
         </li>
       </ul>
 
-      <div style={{ textAlign: "center", marginTop: "40px" }}>
+      {/* 🌸 Botones estilo Bella Flor */}
+      <div
+        style={{
+          textAlign: "center",
+          marginTop: 24,
+          display: "flex",
+          justifyContent: "center",
+          gap: "16px",
+          flexWrap: "wrap",
+        }}
+      >
+        {/* 🏡 Botón: Volver al Inicio */}
         <button
-          onClick={handleAceptar}
           style={{
-            padding: "14px 30px",
-            background: "linear-gradient(to right, #80cbc4, #a5d6a7)",
+            backgroundColor: "#a0e6d0", // verde agua claro
             color: "#004d40",
-            fontWeight: "bold",
             border: "none",
-            borderRadius: "30px",
-            fontSize: "18px",
+            padding: "14px 26px",
+            fontSize: "16px",
+            fontWeight: "bold",
+            borderRadius: "16px",
             cursor: "pointer",
-            boxShadow: "0 4px 12px rgba(0,0,0,0.2)",
-            transition: "0.3s",
+            display: "inline-flex",
+            alignItems: "center",
+            gap: "10px",
+            boxShadow: "0 6px 12px rgba(0, 0, 0, 0.1)",
+            transition: "all 0.3s ease-in-out",
           }}
-          onMouseEnter={(e) => (e.currentTarget.style.transform = "scale(1.05)")}
-          onMouseLeave={(e) => (e.currentTarget.style.transform = "scale(1)")}
+          onMouseEnter={(e) =>
+            (e.currentTarget.style.backgroundColor = "#8edec4")
+          }
+          onMouseLeave={(e) =>
+            (e.currentTarget.style.backgroundColor = "#a0e6d0")
+          }
+          onClick={() => navigate("/")}
         >
-          ✅ Aceptar y continuar con la ficha
+          🏡 Volver al Inicio
+        </button>
+
+        {/* 💅 Botón: Aceptar y continuar */}
+        <button
+          style={{
+            backgroundColor: "#f8b5d0", // rosa pastel
+            color: "#6a1b4d",
+            border: "none",
+            padding: "14px 26px",
+            fontSize: "16px",
+            fontWeight: "bold",
+            borderRadius: "16px",
+            cursor: "pointer",
+            display: "inline-flex",
+            alignItems: "center",
+            gap: "10px",
+            boxShadow: "0 6px 12px rgba(0, 0, 0, 0.1)",
+            transition: "all 0.3s ease-in-out",
+          }}
+          onMouseEnter={(e) =>
+            (e.currentTarget.style.backgroundColor = "#f29cbc")
+          }
+          onMouseLeave={(e) =>
+            (e.currentTarget.style.backgroundColor = "#f8b5d0")
+          }
+          onClick={handleAceptar}
+        >
+          💅 Aceptar y continuar con la ficha
         </button>
       </div>
     </div>
